@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA LUXE — Haute Couture & Luxury Goods</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              300: '#F5E096',
+              400: '#E5C158',
+              500: '#D4AF37',
+              600: '#C5A059',
+              700: '#997A15',
+            },
+            charcoal: {
+              800: '#18191E',
+              900: '#121317',
+              950: '#0B0C10',
+            },
+            cream: '#FAF8F5',
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0B0C10;
+      color: #FAF8F5;
+    }
+    h1, h2, h3, .font-serif {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B0C10;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A2C35;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D4AF37;
+    }
+    .glass-nav {
+      background: rgba(11, 12, 16, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+  </style>
+</head>
+<body class="bg-charcoal-950 text-cream selection:bg-gold-500 selection:text-black">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-gold-700 via-gold-500 to-gold-600 text-black text-[11px] font-semibold uppercase tracking-[0.25em] py-2 px-4 text-center">
+    <span>Complimentary Worldwide Express Courier & Duty-Free Delivery On Orders Over $600</span>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-neutral-900 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="lg:hidden text-cream hover:text-gold-400 focus:outline-none p-2" aria-label="Open navigation menu">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden lg:flex items-center space-x-8 text-xs uppercase tracking-[0.2em] font-medium text-neutral-300">
+        <a href="#hero" class="hover:text-gold-400 transition-colors">Home</a>
+        <a href="#collections" class="hover:text-gold-400 transition-colors">Collections</a>
+        <a href="#products" class="hover:text-gold-400 transition-colors">New Arrivals</a>
+        <a href="#atelier" class="hover:text-gold-400 transition-colors">The Atelier</a>
+      </nav>
+
+      <!-- Brand Logo -->
+      <a href="#" class="text-2xl sm:text-3xl font-serif font-bold tracking-[0.25em] text-cream uppercase group flex items-center">
+        AURA <span class="text-gold-500 ml-1 transition-transform group-hover:scale-125">LUXE</span>
+      </a>
+
+      <!-- Right Action Bar -->
+      <div class="flex items-center space-x-5">
+        <!-- Search Trigger -->
+        <div class="relative hidden sm:block">
+          <input type="text" id="search-input" placeholder="Search Atelier..." 
+                 class="bg-charcoal-900 text-xs text-cream border border-neutral-800 rounded-full py-1.5 pl-8 pr-4 w-36 sm:w-48 focus:w-60 focus:outline-none focus:border-gold-500 transition-all duration-300">
+          <i class="fa-solid fa-magnifying-glass text-xs text-neutral-500 absolute left-3 top-2.5"></i>
+        </div>
+
+        <!-- Wishlist Button -->
+        <button id="wishlist-btn" class="text-neutral-300 hover:text-gold-400 transition-colors relative p-1" aria-label="View Wishlist">
+          <i class="fa-regular fa-heart text-lg"></i>
+          <span id="wishlist-badge" class="absolute -top-1.5 -right-1.5 bg-gold-500 text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+        </button>
+
+        <!-- Cart Trigger Button -->
+        <button id="cart-btn" class="text-neutral-300 hover:text-gold-400 transition-colors relative p-1 flex items-center space-x-2" aria-label="View Cart">
+          <i class="fa-solid fa-bag-shopping text-lg"></i>
+          <span id="cart-badge" class="bg-gold-500 text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-menu" class="fixed inset-0 bg-black/80 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="fixed top-0 left-0 bottom-0 w-4/5 max-w-sm bg-charcoal-900 p-8 border-r border-neutral-800 flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center pb-6 border-b border-neutral-800">
+          <span class="text-xl font-serif font-bold tracking-widest text-gold-400">AURA LUXE</span>
+          <button id="close-mobile-menu" class="text-neutral-400 hover:text-cream p-1">
+            <i class="fa-solid fa-xmark text-xl"></i>
+          </button>
+        </div>
+        <nav class="flex flex-col space-y-6 pt-8 text-xs uppercase tracking-[0.2em] text-neutral-300">
+          <a href="#hero" class="mobile-nav-link hover:text-gold-400">Home</a>
+          <a href="#collections" class="mobile-nav-link hover:text-gold-400">Collections</a>
+          <a href="#products" class="mobile-nav-link hover:text-gold-400">New Arrivals</a>
+          <a href="#atelier" class="mobile-nav-link hover:text-gold-400">The Atelier</a>
+        </nav>
+      </div>
+      <div class="border-t border-neutral-800 pt-6 text-xs text-neutral-500 space-y-2">
+        <p class="text-gold-400 uppercase tracking-widest">Private Client Services</p>
+        <p>concierge@auraluxe.com</p>
+        <p>+1 (800) 928-AURA</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative h-[85vh] sm:h-[90vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2000" 
+           alt="Haute Couture Autumn Collection" 
+           class="w-full h-full object-cover object-center filter brightness-[0.45] scale-105 transition-transform duration-10000">
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-transparent to-black/60"></div>
+    </div>
+
+    <div class="relative z-10 text-center max-w-4xl px-4 mx-auto space-y-6">
+      <span class="text-gold-400 text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] inline-block">
+        Winter / Spring 2027 Runway Edition
+      </span>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-serif font-normal text-cream leading-tight tracking-wide">
+        Opulence Without Compromise
+      </h1>
+      <p class="text-neutral-300 text-xs sm:text-sm font-light max-w-xl mx-auto tracking-[0.2em] leading-relaxed uppercase">
+        Hand-carved silks, Italian calfskin, and high horlogerie crafted in limited atelier quantities.
+      </p>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#products" class="w-full sm:w-auto px-8 py-4 bg-gold-500 text-black text-xs uppercase tracking-[0.25em] font-semibold hover:bg-gold-400 transition-all duration-300 shadow-xl hover:shadow-gold-500/20">
+          Explore Collection
+        </a>
+        <a href="#atelier" class="w-full sm:w-auto px-8 py-4 border border-cream/30 text-cream text-xs uppercase tracking-[0.25em] font-semibold hover:border-gold-400 hover:text-gold-400 transition-all duration-300">
+          Discover The Atelier
+        </a>
+      </div>
+
+      <!-- Feature Badges -->
+      <div class="pt-12 grid grid-cols-3 max-w-2xl mx-auto border-t border-neutral-800/80 text-[10px] sm:text-xs text-neutral-400 uppercase tracking-widest">
+        <div class="flex items-center justify-center space-x-2">
+          <i class="fa-solid fa-gem text-gold-500"></i>
+          <span>100% Limited Edition</span>
+        </div>
+        <div class="flex items-center justify-center space-x-2 border-x border-neutral-800">
+          <i class="fa-solid fa-plane-up text-gold-500"></i>
+          <span>Express Global Courier</span>
+        </div>
+        <div class="flex items-center justify-center space-x-2">
+          <i class="fa-solid fa-award text-gold-500"></i>
+          <span>Milan Certified Handcrafted</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter & Collection Section -->
+  <section id="products" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-neutral-900 pb-8">
+      <div>
+        <span class="text-gold-400 text-xs uppercase tracking-[0.25em]">Curated Atelier Catalog</span>
+        <h2 class="text-3xl sm:text-5xl font-serif mt-2">Signature Releases</h2>
+      </div>
+      
+      <!-- Category Filter Tabs -->
+      <div class="flex flex-wrap gap-2 mt-6 md:mt-0" id="category-filters">
+        <button data-category="All" class="filter-btn active px-4 py-2 text-xs uppercase tracking-widest border border-gold-500 bg-gold-500 text-black font-semibold transition-all">All</button>
+        <button data-category="Haute Couture" class="filter-btn px-4 py-2 text-xs uppercase tracking-widest border border-neutral-800 text-neutral-400 hover:border-gold-500 hover:text-gold-400 transition-all">Haute Couture</button>
+        <button data-category="Leather Goods" class="filter-btn px-4 py-2 text-xs uppercase tracking-widest border border-neutral-800 text-neutral-400 hover:border-gold-500 hover:text-gold-400 transition-all">Leather Goods</button>
+        <button data-category="Timepieces" class="filter-btn px-4 py-2 text-xs uppercase tracking-widest border border-neutral-800 text-neutral-400 hover:border-gold-500 hover:text-gold-400 transition-all">Timepieces</button>
+        <button data-category="Jewelry" class="filter-btn px-4 py-2 text-xs uppercase tracking-widest border border-neutral-800 text-neutral-400 hover:border-gold-500 hover:text-gold-400 transition-all">Jewelry</button>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Populated dynamically by Vanilla JS -->
+    </div>
+  </section>
+
+  <!-- Atelier Brand Story Section -->
+  <section id="atelier" class="py-24 bg-charcoal-900 border-y border-neutral-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="relative group">
+        <div class="absolute -inset-1 bg-gradient-to-r from-gold-500/20 to-transparent rounded-sm blur opacity-30"></div>
+        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=1000" 
+             alt="Maison Master Craftsmanship" 
+             class="relative w-full rounded-sm filter grayscale group-hover:grayscale-0 transition-all duration-700">
+        <div class="absolute bottom-6 left-6 right-6 p-6 bg-charcoal-950/90 border border-neutral-800 backdrop-blur-md">
+          <p class="text-xs text-gold-400 uppercase tracking-widest mb-1">Established 1988 — Milan</p>
+          <p class="text-sm font-serif italic text-neutral-300">"True luxury is not defined by loudness, but by unyielding perfection in every stitch."</p>
+        </div>
+      </div>
+
+      <div class="space-y-6 lg:pl-8">
+        <span class="text-gold-400 text-xs uppercase tracking-[0.25em]">Bespoke Craftsmanship</span>
+        <h2 class="text-3xl sm:text-5xl font-serif leading-tight">Handmade Legacy from the Heart of Milan</h2>
+        <p class="text-neutral-400 text-xs sm:text-sm leading-relaxed tracking-wide">
+          Each AURA LUXE creation undergoes over 120 hours of intricate hand fabrication by master artisans. From rare Tuscan leathers to conflict-free diamonds, our materials are vetted under the highest ethical standards.
+        </p>
+
+        <div class="grid grid-cols-2 gap-6 pt-4 border-t border-neutral-800">
+          <div>
+            <h4 class="text-gold-500 font-serif text-3xl">120+</h4>
+            <p class="text-xs text-neutral-400 uppercase tracking-widest mt-1">Hours Per Garment</p>
+          </div>
+          <div>
+            <h4 class="text-gold-500 font-serif text-3xl">100%</h4>
+            <p class="text-xs text-neutral-400 uppercase tracking-widest mt-1">Traceable Fine Silk & Gold</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="py-20 bg-charcoal-950 border-t border-neutral-900">
+    <div class="max-w-3xl mx-auto text-center px-4">
+      <span class="text-gold-400 text-xs uppercase tracking-[0.25em]">Private Society</span>
+      <h2 class="text-3xl sm:text-4xl font-serif mt-2 mb-4">Join The AURA Atelier Registry</h2>
+      <p class="text-neutral-400 text-xs sm:text-sm mb-8 tracking-wide">Receive exclusive access to private runway previews, invitation-only capsules, and concierge events.</p>
+      
+      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" id="newsletter-email" required placeholder="Enter your email address" 
+               class="flex-1 bg-charcoal-900 border border-neutral-800 px-4 py-3 text-xs text-cream focus:outline-none focus:border-gold-500 transition-colors">
+        <button type="submit" class="px-8 py-3 bg-gold-500 text-black text-xs uppercase tracking-widest font-semibold hover:bg-gold-400 transition-colors whitespace-nowrap">
+          Subscribe
+        </button>
+      </form>
+      <p id="newsletter-msg" class="text-xs text-gold-400 mt-3 hidden">You have been successfully added to the private registry.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-charcoal-900 border-t border-neutral-900 pt-16 pb-8 text-neutral-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+      <div class="space-y-4">
+        <span class="text-xl font-serif text-cream font-bold tracking-widest">AURA LUXE</span>
+        <p class="text-neutral-500 leading-relaxed text-[11px]">Defining contemporary haute couture through timeless silhouettes, Italian heritage, and uncompromising quality.</p>
+      </div>
+      <div>
+        <h4 class="text-cream uppercase tracking-widest font-semibold mb-4">Client Care</h4>
+        <ul class="space-y-2 text-neutral-400">
+          <li><a href="#" class="hover:text-gold-400 transition-colors">Private Concierge</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors">Global Shipping & Taxes</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors">Complimentary Returns</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors">Bespoke Fitting Services</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-cream uppercase tracking-widest font-semibold mb-4">Maison Flagships</h4>
+        <ul class="space-y-2 text-neutral-400">
+          <li><a href="#" class="hover:text-gold-400 transition-colors">Via Montenapoleone, Milan</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors">Rue du Faubourg Saint-Honoré, Paris</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors">Fifth Avenue, New York</a></li>
+          <li><a href="#" class="hover:text-gold-400 transition-colors">Ginza Six, Tokyo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-cream uppercase tracking-widest font-semibold mb-4">Social & Media</h4>
+        <div class="flex space-x-4 text-base text-neutral-300">
+          <a href="#" class="hover:text-gold-400"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="hover:text-gold-400"><i class="fa-brands fa-pinterest-p"></i></a>
+          <a href="#" class="hover:text-gold-400"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="hover:text-gold-400"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-neutral-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-neutral-600 text-[11px]">
+      <p>&copy; 2027 AURA LUXE Inc. All Rights Reserved.</p>
+      <div class="flex space-x-6 mt-4 sm:mt-0">
+        <a href="#" class="hover:text-neutral-400">Privacy Policy</a>
+        <a href="#" class="hover:text-neutral-400">Terms of Service</a>
+        <a href="#" class="hover:text-neutral-400">Security Credentials</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Out Shopping Cart Drawer -->
+  <div id="cart-drawer" class="fixed inset-0 bg-black/80 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="cart-panel" class="fixed top-0 right-0 bottom-0 w-full sm:w-[440px] bg-charcoal-900 border-l border-neutral-800 p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300">
+      
+      <!-- Drawer Header -->
+      <div>
+        <div class="flex justify-between items-center pb-6 border-b border-neutral-800">
+          <h3 class="font-serif text-xl text-cream tracking-wide flex items-center">
+            Shopping Bag (<span id="cart-items-count">0</span>)
+          </h3>
+          <button id="close-cart" class="text-neutral-400 hover:text-white p-2" aria-label="Close Shopping Bag">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <!-- Free Shipping Threshold Indicator -->
+        <div class="mt-4 p-3 bg-charcoal-950 border border-neutral-800 rounded-sm">
+          <div class="flex justify-between text-[11px] mb-1">
+            <span id="shipping-progress-text" class="text-neutral-300">Add $600 for Free Courier Delivery</span>
+            <span id="shipping-progress-percent" class="text-gold-400 font-semibold">0%</span>
+          </div>
+          <div class="w-full h-1 bg-neutral-800 rounded-full overflow-hidden">
+            <div id="shipping-bar" class="h-full bg-gold-500 w-0 transition-all duration-500"></div>
+          </div>
+        </div>
+
+        <!-- Cart Items Container -->
+        <div id="cart-items-container" class="py-6 space-y-4 max-h-[50vh] overflow-y-auto">
+          <!-- Dynamically filled by JS -->
+        </div>
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="border-t border-neutral-800 pt-6 space-y-3">
+        <div class="flex justify-between text-xs">
+          <span class="text-neutral-400 uppercase tracking-widest">Subtotal</span>
+          <span id="cart-subtotal" class="font-serif text-gold-400 text-lg">$0.00</span>
+        </div>
+        <div class="flex justify-between text-xs text-neutral-500">
+          <span class="uppercase tracking-widest">Estimated Taxes & Duty</span>
+          <span>Included</span>
+        </div>
+        <p class="text-[10px] text-neutral-500">Complimentary gift box & atelier authentication card with every order.</p>
+        <button id="checkout-btn" class="w-full py-4 bg-gold-500 text-black text-xs uppercase tracking-[0.2em] font-semibold hover:bg-gold-400 transition-colors shadow-lg">
+          Proceed To Checkout
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Interactive Quick View Modal -->
+  <div id="quickview-modal" class="fixed inset-0 bg-black/85 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-charcoal-900 border border-neutral-800 max-w-3xl w-full rounded-sm overflow-hidden relative flex flex-col md:flex-row shadow-2xl">
+      <button id="close-quickview" class="absolute top-4 right-4 z-10 text-neutral-400 hover:text-cream bg-black/50 w-8 h-8 rounded-full flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Modal Image -->
+      <div class="w-full md:w-1/2 h-72 md:h-auto relative bg-charcoal-950">
+        <img id="qv-img" src="" alt="" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Modal Details -->
+      <div class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between">
+        <div class="space-y-4">
+          <span id="qv-category" class="text-[10px] text-gold-400 uppercase tracking-[0.2em]">Category</span>
+          <h3 id="qv-title" class="font-serif text-2xl text-cream">Product Title</h3>
+          <p id="qv-price" class="font-serif text-xl text-gold-400">$0.00</p>
+          <p id="qv-desc" class="text-xs text-neutral-400 leading-relaxed">
+            Crafted with precision using fine atelier techniques. Includes certificate of origin.
+          </p>
+
+          <!-- Size Selector -->
+          <div class="pt-2">
+            <span class="text-[10px] text-neutral-400 uppercase tracking-widest block mb-2">Select Size</span>
+            <div class="flex space-x-2" id="qv-sizes">
+              <button class="size-btn px-3 py-1.5 border border-gold-500 text-gold-400 text-xs uppercase">S</button>
+              <button class="size-btn px-3 py-1.5 border border-neutral-800 text-neutral-400 text-xs uppercase hover:border-gold-500">M</button>
+              <button class="size-btn px-3 py-1.5 border border-neutral-800 text-neutral-400 text-xs uppercase hover:border-gold-500">L</button>
+              <button class="size-btn px-3 py-1.5 border border-neutral-800 text-neutral-400 text-xs uppercase hover:border-gold-500">XL</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 space-y-3">
+          <button id="qv-add-cart" class="w-full py-3 bg-gold-500 text-black text-xs uppercase tracking-widest font-semibold hover:bg-gold-400 transition-colors">
+            Add To Shopping Bag
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Micro-Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-gold-500 text-black px-6 py-3 text-xs uppercase tracking-widest font-semibold shadow-2xl rounded-sm transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+    Notification Message
+  </div>
+
+  <!-- Vanilla JavaScript Logic -->
+  <script>
+    // Product Database
+    const products = [
+      {
+        id: 1,
+        title: "The Sovereign Wool Trench",
+        category: "Haute Couture",
+        price: 2450.00,
+        rating: 4.9,
+        reviews: 28,
+        image: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&q=80&w=800",
+        hoverImage: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800",
+        description: "Double-breasted trench handcrafted in Milan from Italian virgin wool with hand-finished horn buttons."
+      },
+      {
+        id: 2,
+        title: "Monolith Calfskin Tote",
+        category: "Leather Goods",
+        price: 1850.00,
+        rating: 5.0,
+        reviews: 42,
+        image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=800",
+        hoverImage: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&q=80&w=800",
+        description: "Full-grain Tuscan leather bag featuring 24k gold-plated brass closures and custom suede lining."
+      },
+      {
+        id: 3,
+        title: "Aethelgard Titanium Chrono",
+        category: "Timepieces",
+        price: 5200.00,
+        rating: 4.8,
+        reviews: 19,
+        image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+        hoverImage: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=800",
+        description: "Swiss automatic movement housed in brushed grade-5 titanium with an alligator leather strap."
+      },
+      {
+        id: 4,
+        title: "Empress Draped Silk Gown",
+        category: "Haute Couture",
+        price: 3100.00,
+        rating: 5.0,
+        reviews: 15,
+        image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&q=80&w=800",
+        hoverImage: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800",
+        description: "Floor-length pure mulberry silk gown featuring an asymmetric back and hand-embroidered detailing."
+      },
+      {
+        id: 5,
+        title: "Solitaire Gold Pendant",
+        category: "Jewelry",
+        price: 1400.00,
+        rating: 4.9,
+        reviews: 31,
+        image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=800",
+        hoverImage: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800",
+        description: "18k solid yellow gold chain suspended with a ethically sourced 1.5-carat brilliant cut solitaire diamond."
+      },
+      {
+        id: 6,
+        title: "Velvet Evening Blazer",
+        category: "Haute Couture",
+        price: 1950.00,
+        rating: 4.7,
+        reviews: 22,
+        image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800",
+        hoverImage: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&q=80&w=800",
+        description: "Tailored velvet blazer with satin peak lapels and interior silk lining handcrafted in Florence."
+      }
+    ];
+
+    // Global Application State
+    let cart = [];
+    let wishlist = [];
+    let selectedQvProduct = null;
+    let selectedSize = "M";
+    let activeCategory = "All";
+
+    // DOM References
+    const productsGrid = document.getElementById('products-grid');
+    const cartBtn = document.getElementById('cart-btn');
+    const closeCart = document.getElementById('close-cart');
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartPanel = document.getElementById('cart-panel');
+    const cartItemsContainer = document.getElementById('cart-items-container');
+    const cartBadge = document.getElementById('cart-badge');
+    const cartItemsCount = document.getElementById('cart-items-count');
+    const cartSubtotal = document.getElementById('cart-subtotal');
+    const shippingBar = document.getElementById('shipping-bar');
+    const shippingProgressText = document.getElementById('shipping-progress-text');
+    const shippingProgressPercent = document.getElementById('shipping-progress-percent');
+    const wishlistBadge = document.getElementById('wishlist-badge');
+    const toast = document.getElementById('toast');
+
+    // Quick View Elements
+    const quickviewModal = document.getElementById('quickview-modal');
+    const closeQuickview = document.getElementById('close-quickview');
+    const qvImg = document.getElementById('qv-img');
+    const qvCategory = document.getElementById('qv-category');
+    const qvTitle = document.getElementById('qv-title');
+    const qvPrice = document.getElementById('qv-price');
+    const qvDesc = document.getElementById('qv-desc');
+    const qvAddCart = document.getElementById('qv-add-cart');
+
+    // Render Product Cards Grid
+    function renderProducts() {
+      const filtered = activeCategory === "All" 
+        ? products 
+        : products.filter(p => p.category === activeCategory);
+
+      if (filtered.length === 0) {
+        productsGrid.innerHTML = `
+          <div class="col-span-full text-center py-12 text-neutral-500 text-xs uppercase tracking-widest">
+            No products available in this category.
+          </div>
+        `;
+        return;
+      }
+
+      productsGrid.innerHTML = filtered.map(product => `
+        <div class="group relative bg-charcoal-900 border border-neutral-900 rounded-sm overflow-hidden flex flex-col justify-between transition-all duration-300 hover:border-neutral-800">
+          <!-- Card Header / Image Container -->
+          <div class="relative h-88 overflow-hidden bg-charcoal-950 cursor-pointer" onclick="openQuickView(${product.id})">
+            <img src="${product.image}" alt="${product.title}" 
+                 class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+            
+            <!-- Quick View Trigger Overlay -->
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <button class="px-4 py-2 bg-charcoal-950/90 text-cream text-[10px] uppercase tracking-widest border border-gold-500/40 hover:bg-gold-500 hover:text-black transition-colors">
+                Quick View
+              </button>
+            </div>
+
+            <!-- Wishlist Heart Toggle -->
+            <button onclick="event.stopPropagation(); toggleWishlist(${product.id})" 
+                    class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 text-neutral-300 hover:text-gold-400 flex items-center justify-center transition-colors">
+              <i class="${wishlist.includes(product.id) ? 'fa-solid text-gold-400' : 'fa-regular'} fa-heart text-xs"></i>
+            </button>
+          </div>
+
+          <!-- Product Details -->
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] text-gold-400 uppercase tracking-widest block">${product.category}</span>
+                <div class="flex items-center space-x-1 text-gold-400 text-[10px]">
+                  <i class="fa-solid fa-star"></i>
+                  <span class="text-neutral-300 font-semibold">${product.rating}</span>
+                </div>
+              </div>
+              <h3 class="font-serif text-lg text-cream mt-1 group-hover:text-gold-300 transition-colors">${product.title}</h3>
+            </div>
+
+            <div class="flex items-center justify-between pt-3 border-t border-neutral-800">
+              <span class="font-serif text-gold-400 text-sm font-semibold">$${product.price.toFixed(2)}</span>
+              <button onclick="addToCart(${product.id})" class="text-[11px] text-neutral-300 uppercase tracking-widest hover:text-gold-400 transition-colors">
+                + Add To Bag
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Category Filter Navigation
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.remove('bg-gold-500', 'text-black', 'border-gold-500', 'font-semibold');
+          b.classList.add('border-neutral-800', 'text-neutral-400');
+        });
+        e.target.classList.add('bg-gold-500', 'text-black', 'border-gold-500', 'font-semibold');
+        e.target.classList.remove('border-neutral-800', 'text-neutral-400');
+
+        activeCategory = e.target.getAttribute('data-category');
+        renderProducts();
+      });
+    });
+
+    // Mobile Navigation Drawer Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+    });
+    closeMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+    });
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+      });
+    });
+
+    // Shopping Cart Drawer Functions
+    function openCartDrawer() {
+      cartDrawer.classList.remove('opacity-0', 'pointer-events-none');
+      cartPanel.classList.remove('translate-x-full');
+    }
+    function closeCartDrawer() {
+      cartDrawer.classList.add('opacity-0', 'pointer-events-none');
+      cartPanel.classList.add('translate-x-full');
+    }
+    cartBtn.addEventListener('click', openCartDrawer);
+    closeCart.addEventListener('click', closeCartDrawer);
+    cartDrawer.addEventListener('click', (e) => {
+      if (e.target === cartDrawer) closeCartDrawer();
+    });
+
+    // Add Item To Cart Logic
+    function addToCart(productId, size = "M") {
+      const existing = cart.find(item => item.id === productId && item.size === size);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        const prod = products.find(p => p.id === productId);
+        cart.push({ ...prod, size: size, quantity: 1 });
+      }
+      updateCartUI();
+      showToast('Item added to shopping bag');
+    }
+
+    // Update Cart State & Calculations
+    function updateCartUI() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartBadge.innerText = totalItems;
+      cartItemsCount.innerText = totalItems;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
+          <div class="text-center py-12 text-neutral-500 text-xs uppercase tracking-widest">
+            Your shopping bag is empty.
+          </div>
+        `;
+      } else {
+        cartItemsContainer.innerHTML = cart.map((item, index) => `
+          <div class="flex items-center space-x-4 py-3 border-b border-neutral-800">
+            <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded-sm border border-neutral-800">
+            <div class="flex-1">
+              <h4 class="font-serif text-sm text-cream">${item.title}</h4>
+              <p class="text-[10px] text-neutral-400 uppercase tracking-widest">Size: ${item.size}</p>
+              <span class="text-xs text-gold-400 font-serif">$${item.price.toFixed(2)}</span>
+              <div class="flex items-center space-x-3 mt-2">
+                <button onclick="changeQty(${index}, -1)" class="text-neutral-400 hover:text-white text-xs px-1.5 border border-neutral-800">-</button>
+                <span class="text-xs text-neutral-300">${item.quantity}</span>
+                <button onclick="changeQty(${index}, 1)" class="text-neutral-400 hover:text-white text-xs px-1.5 border border-neutral-800">+</button>
+              </div>
+            </div>
+            <button onclick="removeFromCart(${index})" class="text-neutral-500 hover:text-red-400 text-xs p-2">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `).join('');
+      }
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      cartSubtotal.innerText = `$${total.toFixed(2)}`;
+
+      // Update Free Shipping Bar ($600 Threshold)
+      const threshold = 600;
+      const progress = Math.min((total / threshold) * 100, 100);
+      shippingBar.style.width = `${progress}%`;
+      shippingProgressPercent.innerText = `${Math.round(progress)}%`;
+
+      if (total >= threshold) {
+        shippingProgressText.innerText = "You have unlocked Free Express Courier Shipping!";
+      } else {
+        const remaining = (threshold - total).toFixed(2);
+        shippingProgressText.innerText = `Add $${remaining} for Free Courier Delivery`;
+      }
+    }
+
+    function changeQty(index, delta) {
+      if (cart[index]) {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) {
+          cart.splice(index, 1);
+        }
+      }
+      updateCartUI();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    // Toggle Wishlist Logic
+    function toggleWishlist(id) {
+      if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(item => item !== id);
+        showToast('Item removed from wishlist');
+      } else {
+        wishlist.push(id);
+        showToast('Item added to wishlist');
+      }
+
+      wishlistBadge.innerText = wishlist.length;
+      if (wishlist.length > 0) {
+        wishlistBadge.classList.remove('opacity-0');
+      } else {
+        wishlistBadge.classList.add('opacity-0');
+      }
+      renderProducts();
+    }
+
+    // Quick View Modal
+    function openQuickView(productId) {
+      selectedQvProduct = products.find(p => p.id === productId);
+      qvImg.src = selectedQvProduct.image;
+      qvCategory.innerText = selectedQvProduct.category;
+      qvTitle.innerText = selectedQvProduct.title;
+      qvPrice.innerText = `$${selectedQvProduct.price.toFixed(2)}`;
+      qvDesc.innerText = selectedQvProduct.description;
+
+      quickviewModal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    closeQuickview.addEventListener('click', () => {
+      quickviewModal.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    qvAddCart.addEventListener('click', () => {
+      if (selectedQvProduct) {
+        addToCart(selectedQvProduct.id, selectedSize);
+        quickviewModal.classList.add('opacity-0', 'pointer-events-none');
+      }
+    });
+
+    // Quick View Size Selection Buttons
+    document.querySelectorAll('.size-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.size-btn').forEach(b => {
+          b.classList.remove('border-gold-500', 'text-gold-400');
+          b.classList.add('border-neutral-800', 'text-neutral-400');
+        });
+        e.target.classList.add('border-gold-500', 'text-gold-400');
+        selectedSize = e.target.innerText;
+      });
+    });
+
+    // Toast Notification Banner
+    function showToast(message) {
+      toast.innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    // Search Filtering
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      const filtered = products.filter(p => p.title.toLowerCase().includes(term) || p.category.toLowerCase().includes(term));
+      
+      productsGrid.innerHTML = filtered.map(product => `
+        <div class="group relative bg-charcoal-900 border border-neutral-900 rounded-sm overflow-hidden flex flex-col justify-between">
+          <div class="relative h-88 overflow-hidden bg-charcoal-950 cursor-pointer" onclick="openQuickView(${product.id})">
+            <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105">
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[10px] text-gold-400 uppercase tracking-widest block">${product.category}</span>
+              <h3 class="font-serif text-lg text-cream mt-1">${product.title}</h3>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-neutral-800">
+              <span class="font-serif text-gold-400 text-sm font-semibold">$${product.price.toFixed(2)}</span>
+              <button onclick="addToCart(${product.id})" class="text-[11px] text-neutral-300 uppercase tracking-widest hover:text-gold-400">
+                + Add To Bag
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    });
+
+    // Newsletter Submission
+    document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('newsletter-msg').classList.remove('hidden');
+      e.target.reset();
+    });
+
+    // Checkout Trigger
+    document.getElementById('checkout-btn').addEventListener('click', () => {
+      if (cart.length === 0) {
+        showToast('Your bag is empty.');
+      } else {
+        showToast('Redirecting to SSL Secure Private Checkout...');
+      }
+    });
+
+    // Initial Load Setup
+    window.onload = function() {
+      renderProducts();
+      updateCartUI();
+    };
+  </script>
+</body>
+</html>
